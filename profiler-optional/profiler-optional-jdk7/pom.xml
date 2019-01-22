@@ -33,6 +33,7 @@
 
     <properties>
         <jdk.version>1.7</jdk.version>
+        <env.JAVA_7_HOME>/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home</env.JAVA_7_HOME>
         <jdk.home>${env.JAVA_7_HOME}</jdk.home>
     </properties>
 
