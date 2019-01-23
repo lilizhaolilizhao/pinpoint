@@ -33,7 +33,6 @@
 
     <properties>
         <jdk.version>1.8</jdk.version>
-        <env.JAVA_8_HOME>/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home</env.JAVA_8_HOME>
         <jdk.home>${env.JAVA_8_HOME}</jdk.home>
         <sniffer.artifactid>java18</sniffer.artifactid>
     </properties>

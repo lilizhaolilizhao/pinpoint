@@ -33,7 +33,6 @@
 
     <properties>
         <jdk.version>9</jdk.version>
-        <env.JAVA_9_HOME>/Library/Java/JavaVirtualMachines/jdk-9.0.4.jdk/Contents/Home</env.JAVA_9_HOME>
         <jdk.home>${env.JAVA_9_HOME}</jdk.home>
     </properties>
 

@@ -90,15 +90,8 @@
     </modules>
 
     <properties>
-        <JAVA_HOME>/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home</JAVA_HOME>
-        <JAVA_6_HOME>/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home</JAVA_6_HOME>
-        <JAVA_7_HOME>/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home</JAVA_7_HOME>
-        <JAVA_8_HOME>/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home</JAVA_8_HOME>
-        <JAVA_9_HOME>/Library/Java/JavaVirtualMachines/jdk-9.0.4.jdk/Contents/Home</JAVA_9_HOME>
-
         <encoding>UTF-8</encoding>
         <jdk.version>1.6</jdk.version>
-        <env.JAVA_6_HOME>/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home</env.JAVA_6_HOME>
         <jdk.home>${env.JAVA_6_HOME}</jdk.home>
         <test.jdk.home>${jdk.home}</test.jdk.home>
 
@@ -851,21 +844,21 @@
                                 <requireJavaVersion>
                                     <version>1.8</version>
                                 </requireJavaVersion>
-                                <!--<requireEnvironmentVariable>-->
-                                    <!--<variableName>JAVA_HOME</variableName>-->
-                                <!--</requireEnvironmentVariable>-->
-                                <!--<requireEnvironmentVariable>-->
-                                    <!--<variableName>JAVA_6_HOME</variableName>-->
-                                <!--</requireEnvironmentVariable>-->
-                                <!--<requireEnvironmentVariable>-->
-                                    <!--<variableName>JAVA_7_HOME</variableName>-->
-                                <!--</requireEnvironmentVariable>-->
-                                <!--<requireEnvironmentVariable>-->
-                                    <!--<variableName>JAVA_8_HOME</variableName>-->
-                                <!--</requireEnvironmentVariable>-->
-                                <!--<requireEnvironmentVariable>-->
-                                    <!--<variableName>JAVA_9_HOME</variableName>-->
-                                <!--</requireEnvironmentVariable>-->
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_HOME</variableName>
+                                </requireEnvironmentVariable>
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_6_HOME</variableName>
+                                </requireEnvironmentVariable>
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_7_HOME</variableName>
+                                </requireEnvironmentVariable>
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_8_HOME</variableName>
+                                </requireEnvironmentVariable>
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_9_HOME</variableName>
+                                </requireEnvironmentVariable>
                             </rules>
                             <fail>true</fail>
                         </configuration>
