@@ -76,7 +76,7 @@ public class CallSelfController {
                 .setScheme("http")
                 .setHost(LOCAL_IP)
                 .setPort(request.getLocalPort())
-                .setPath(path + ".pinpoint")
+                .setPath(request.getContextPath() + path + ".pinpoint")
                 .build()
                 .toString();
     }
