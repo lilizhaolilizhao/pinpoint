@@ -87,6 +87,7 @@
         <module>web</module>
         <module>hbase</module>
         <module>flink</module>
+        <module>swing-ui</module>
     </modules>
 
     <properties>

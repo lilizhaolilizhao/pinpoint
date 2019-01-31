@@ -71,8 +71,6 @@ public class HbaseTraceDaoV2 implements TraceDao {
 
     }
 
-
-
     @Override
     public void insertSpanChunk(SpanChunkBo spanChunkBo) {
 

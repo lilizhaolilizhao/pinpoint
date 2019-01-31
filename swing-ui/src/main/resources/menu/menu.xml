@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menus>
+    <frame>
+        <menu name="文件(F)" mnemonic_key="F">
+            <menuitem name="退出" type="common" actioncommand="frame.menu.file.exit"/>
+        </menu>
+        <menu name="帮助(H)" mnemonic_key="H">
+            <menuitem name="Kafka Tool for NI " type="common"
+                      actioncommand="frame.menu.help.openhelp" accelerate_key="F1"/>
+        </menu>
+    </frame>
+</menus>

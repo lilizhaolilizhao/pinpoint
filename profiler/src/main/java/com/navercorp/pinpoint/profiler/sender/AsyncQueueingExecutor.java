@@ -17,7 +17,6 @@
 package com.navercorp.pinpoint.profiler.sender;
 
 import java.util.Collection;
-import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
