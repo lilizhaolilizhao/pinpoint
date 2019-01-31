@@ -1,7 +1,7 @@
 package com.oneapm.ui.frame;
 
 import com.oneapm.ui.menu.MainMenuBar;
-import com.oneapm.ui.panel.FileChoosePanel;
+import com.oneapm.ui.panel.AppChoosePanel;
 import com.oneapm.ui.panel.MessagePanel;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     public static MainMenuBar mainMenuBar;
-    public static FileChoosePanel fileChoosePanel;
+    public static AppChoosePanel appChoosePanel;
     public static MessagePanel messagePanel;
 
     private MainFrame() throws HeadlessException {
@@ -37,9 +37,9 @@ public class MainFrame extends JFrame {
     private void initViewComponent() {
         mainMenuBar = new MainMenuBar("/menu/menu.xml");
 
-        fileChoosePanel = new FileChoosePanel();
-        fileChoosePanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        fileChoosePanel.setBackground(new Color(252, 252, 252));
+        appChoosePanel = new AppChoosePanel();
+        appChoosePanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        appChoosePanel.setBackground(new Color(252, 252, 252));
 
         messagePanel = new MessagePanel();
         messagePanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
 
         setJMenuBar(mainMenuBar);
-        add(fileChoosePanel, BorderLayout.NORTH);
+        add(appChoosePanel, BorderLayout.NORTH);
         add(messagePanel, BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
