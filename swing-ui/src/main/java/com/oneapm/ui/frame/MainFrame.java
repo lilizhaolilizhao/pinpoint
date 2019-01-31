@@ -2,7 +2,7 @@ package com.oneapm.ui.frame;
 
 import com.oneapm.ui.menu.MainMenuBar;
 import com.oneapm.ui.panel.AppChoosePanel;
-import com.oneapm.ui.panel.MessagePanel;
+import com.oneapm.ui.panel.WebInfoPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
 
     public static MainMenuBar mainMenuBar;
     public static AppChoosePanel appChoosePanel;
-    public static MessagePanel messagePanel;
+    public static WebInfoPanel webInfoPanel;
 
     private MainFrame() throws HeadlessException {
         setLookAndFeel();
@@ -41,9 +41,9 @@ public class MainFrame extends JFrame {
         appChoosePanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         appChoosePanel.setBackground(new Color(252, 252, 252));
 
-        messagePanel = new MessagePanel();
-        messagePanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        messagePanel.setBackground(new Color(252, 252, 252));
+        webInfoPanel = new WebInfoPanel();
+        webInfoPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        webInfoPanel.setBackground(new Color(252, 252, 252));
     }
 
     /**
@@ -57,7 +57,7 @@ public class MainFrame extends JFrame {
 
         setJMenuBar(mainMenuBar);
         add(appChoosePanel, BorderLayout.NORTH);
-        add(messagePanel, BorderLayout.CENTER);
+        add(webInfoPanel, BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

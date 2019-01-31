@@ -1,31 +1,29 @@
 package com.oneapm.ui.panel;
 
+import com.oneapm.ui.treetable.APMTreeTableModel;
+import org.jdesktop.swingx.JXTreeTable;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
- * Created by lilizhao on 16-3-12.
+ * 展示WEB事务信息
  */
-public class MessagePanel extends JPanel {
+public class WebInfoPanel extends JPanel {
 
-    private JTextArea messageTextArea;
     private JScrollPane msgLogPane;
+    private APMTreeTableModel treeTableModel = new APMTreeTableModel();
 
-    public JTextArea getMessageTextArea() {
-        return messageTextArea;
-    }
-
-    public MessagePanel() {
+    public WebInfoPanel() {
         initTextArea();
         initViewComponent();
     }
 
     private void initTextArea() {
-        messageTextArea = new JTextArea("kafka消费日志:");
-        messageTextArea.setEditable(false);
+        JXTreeTable treeTable = new JXTreeTable(treeTableModel);
 
-        msgLogPane = new JScrollPane(messageTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        msgLogPane = new JScrollPane(treeTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         TitledBorder msgLogBorder = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "消息日志");
         msgLogPane.setBorder(msgLogBorder);
