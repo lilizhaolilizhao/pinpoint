@@ -21,7 +21,6 @@ public class APMTreeTableModel extends AbstractTreeTableModel {
 
         myroot.getChildren().add(new APMTreeNode("Empty Child 2",
                 "This is an empty child"));
-
     }
 
     @Override
