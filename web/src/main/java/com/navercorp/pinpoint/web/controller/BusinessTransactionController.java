@@ -23,6 +23,8 @@ import com.navercorp.pinpoint.common.util.TransactionId;
 import com.navercorp.pinpoint.common.util.TransactionIdUtils;
 import com.navercorp.pinpoint.web.applicationmap.ApplicationMap;
 import com.navercorp.pinpoint.web.calltree.span.CallTreeIterator;
+import com.navercorp.pinpoint.web.calltree.span.CallTreeNode;
+import com.navercorp.pinpoint.web.calltree.span.SpanAlign;
 import com.navercorp.pinpoint.web.service.FilteredMapService;
 import com.navercorp.pinpoint.web.service.SpanResult;
 import com.navercorp.pinpoint.web.service.SpanService;
@@ -31,6 +33,7 @@ import com.navercorp.pinpoint.web.util.DefaultMongoJsonParser;
 import com.navercorp.pinpoint.web.util.MongoJsonParser;
 import com.navercorp.pinpoint.web.util.OutputParameterMongoJsonParser;
 import com.navercorp.pinpoint.web.view.TransactionInfoViewModel;
+import com.navercorp.pinpoint.web.vo.callstacks.Record;
 import com.navercorp.pinpoint.web.vo.callstacks.RecordSet;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
@@ -106,6 +109,18 @@ public class BusinessTransactionController {
         // application map
         ApplicationMap map = filteredMapService.selectApplicationMap(transactionId, viewVersion);
         RecordSet recordSet = this.transactionInfoService.createRecordSet(callTreeIterator, focusTimestamp, agentId, spanId);
+
+        //控制台输出调用栈信息
+        System.out.println("=====================================控制台输出调用栈信息 start===================================================");
+        List<Record> recordList = recordSet.getRecordList();
+        for (Record record : recordList) {
+            boolean isMethod = record.isMethod();
+
+            if (isMethod) {
+                System.out.println(record.getTab() + "|" + record.getTitle() + "|");
+            }
+        }
+        System.out.println("=====================================控制台输出调用栈信息 end  ===================================================");
 
         TransactionInfoViewModel result = new TransactionInfoViewModel(transactionId, map.getNodes(), map.getLinks(), recordSet, spanResult.getCompleteTypeString(), logLinkEnable, logButtonName, logPageUrl, disableButtonMessage);
         return result;
