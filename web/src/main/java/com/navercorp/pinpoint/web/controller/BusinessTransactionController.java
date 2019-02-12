@@ -16,15 +16,9 @@
 
 package com.navercorp.pinpoint.web.controller;
 
-import com.navercorp.pinpoint.common.util.DefaultSqlParser;
-import com.navercorp.pinpoint.common.util.OutputParameterParser;
-import com.navercorp.pinpoint.common.util.SqlParser;
-import com.navercorp.pinpoint.common.util.TransactionId;
-import com.navercorp.pinpoint.common.util.TransactionIdUtils;
+import com.navercorp.pinpoint.common.util.*;
 import com.navercorp.pinpoint.web.applicationmap.ApplicationMap;
 import com.navercorp.pinpoint.web.calltree.span.CallTreeIterator;
-import com.navercorp.pinpoint.web.calltree.span.CallTreeNode;
-import com.navercorp.pinpoint.web.calltree.span.SpanAlign;
 import com.navercorp.pinpoint.web.service.FilteredMapService;
 import com.navercorp.pinpoint.web.service.SpanResult;
 import com.navercorp.pinpoint.web.service.SpanService;
@@ -46,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -117,7 +112,12 @@ public class BusinessTransactionController {
             boolean isMethod = record.isMethod();
 
             if (isMethod) {
-                System.out.println(record.getTab() + "|" + record.getTitle() + "|");
+                long timeBegin = record.getBegin();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss SSS");
+
+                System.out.println(record.getTab() + "|" + record.getFullApiDescription() + "|" + record.getArguments() + "|" + sdf.format(timeBegin)
+                        + "|" + record.getGap() + "|" + record.getElapsed() + "|" + record.getExecutionMilliseconds() + "|" + record.getApiType()
+                        + "|" + record.getAgent() + "|" + record.getApplicationName());
             }
         }
         System.out.println("=====================================控制台输出调用栈信息 end  ===================================================");
