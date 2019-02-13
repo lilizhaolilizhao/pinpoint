@@ -24,7 +24,7 @@ public class DruidPluginTest {
         ProfilerPluginSetupContext profilerPluginSetupContext = mock(ProfilerPluginSetupContext.class);
         when(profilerPluginSetupContext.getConfig()).thenReturn(new DefaultProfilerConfig());
 
-        plugin.setup(profilerPluginSetupContext, pluginInfoBeans);
+        plugin.setup(profilerPluginSetupContext, null);
     }
 
 }

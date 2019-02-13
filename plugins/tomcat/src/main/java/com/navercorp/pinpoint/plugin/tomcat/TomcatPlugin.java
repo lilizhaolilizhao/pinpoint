@@ -192,24 +192,26 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
         });
     }
 
-    private void addStandardHostValve(final List<PluginInfoBean> pluginInfoBeans) {
-        transformTemplate.transform("org.apache.catalina.core.StandardHostValve", new TransformCallback() {
+    private void addStandardHostValve(List<PluginInfoBean> pluginInfoBeans) {
+        String className = "org.apache.catalina.core.StandardHostValve";
+        final String methodName = "invoke";
+        final String[] parameterTypes = new String[]{"org.apache.catalina.connector.Request", "org.apache.catalina.connector.Response"};
 
+        transformTemplate.transform(className, new TransformCallback() {
             @Override
             public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
                 final InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
                 // Remove bind trace
-                final InstrumentMethod method = target.getDeclaredMethod("invoke", "org.apache.catalina.connector.Request", "org.apache.catalina.connector.Response");
+                final InstrumentMethod method = target.getDeclaredMethod(methodName, parameterTypes);
                 if (method != null) {
                     method.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.StandardHostValveInvokeInterceptor");
-
-                    //对插码的类和方法进行汇总
-                    pluginInfoBeans.add(new PluginInfoBean("org.apache.catalina.core.StandardHostValve", "invoke",
-                            new String[]{"org.apache.catalina.connector.Request", "org.apache.catalina.connector.Response"}));
                 }
                 return target.toBytecode();
             }
         });
+
+        //对插码的类和方法进行汇总
+        pluginInfoBeans.add(new PluginInfoBean(className, methodName, parameterTypes));
     }
 
 

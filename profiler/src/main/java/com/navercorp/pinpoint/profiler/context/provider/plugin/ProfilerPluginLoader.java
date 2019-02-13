@@ -73,6 +73,7 @@ public class ProfilerPluginLoader {
             pluginContexts.addAll(setupResults);
         }
 
+        //插码的信息格式化输出
         System.out.println(pluginInfoBeans);
 
         return pluginContexts;
