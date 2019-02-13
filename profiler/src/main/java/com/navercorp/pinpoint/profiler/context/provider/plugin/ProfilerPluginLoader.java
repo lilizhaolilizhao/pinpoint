@@ -32,6 +32,7 @@ import com.navercorp.pinpoint.profiler.plugin.SetupResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.instrument.ClassFileTransformer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -89,6 +90,14 @@ public class ProfilerPluginLoader {
             PluginConfig pluginConfig = new PluginConfig(plugin, pluginFilterChain);
             final ClassInjector classInjector = classInjectorFactory.newClassInjector(pluginConfig);
             final SetupResult setupResult = pluginSetup.setupPlugin(profilerPlugin, classInjector);
+
+            //获取所有插码的目标类
+            List<ClassFileTransformer> classTransformerList = setupResult.getClassTransformerList();
+            for (ClassFileTransformer classFileTransformer : classTransformerList) {
+                String name = classFileTransformer.getClass().getName();
+                System.out.println(name);
+            }
+
             result.add(setupResult);
         }
         return result;

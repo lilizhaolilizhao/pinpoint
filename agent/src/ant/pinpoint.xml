@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="pinpoint" default="deploy">
+<project name="pinpoint" default="deploy_dev">
     <target name="mvn" description="package">
         <exec executable="sh">
             <arg value="-c"/>
@@ -11,6 +11,13 @@
             <arg value="-c"/>
             <arg value="mv /Users/oneapm/git/pinpoint/agent/target/pinpoint-agent-1.8.2-SNAPSHOT.zip /Users/oneapm/software/pinpoint;
                         cd /Users/oneapm/software/pinpoint;unzip pinpoint-agent-1.8.2-SNAPSHOT.zip"/>
+        </exec>
+    </target>
+    <target name="deploy_dev" description="deploy to local dir">
+        <exec executable="sh">
+            <arg value="-c"/>
+            <arg value="mv /Users/oneapm/git/pinpoint/agent/target/pinpoint-agent-1.8.2-SNAPSHOT.zip /Users/oneapm/git/pinpoint/profiler/target;
+                        cd /Users/oneapm/git/pinpoint/profiler/target;unzip pinpoint-agent-1.8.2-SNAPSHOT.zip"/>
         </exec>
     </target>
 </project>
