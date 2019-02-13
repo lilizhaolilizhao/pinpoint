@@ -28,8 +28,10 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.util.InstrumentUtils;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 public class CommonsDbcp2Plugin implements ProfilerPlugin, TransformTemplateAware {
 
@@ -40,7 +42,7 @@ public class CommonsDbcp2Plugin implements ProfilerPlugin, TransformTemplateAwar
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         config = new CommonsDbcp2Config(context.getConfig());
         if (!config.isPluginEnable()) {
             logger.info("Disable commons dbcp option. 'profiler.jdbc.dbcp2=false'");

@@ -30,6 +30,7 @@ import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.jdbc.PreparedStatementBindingMethodFilter;
 import com.navercorp.pinpoint.bootstrap.plugin.jdbc.JdbcUrlParserV2;
 import com.navercorp.pinpoint.bootstrap.plugin.util.InstrumentUtils;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import java.security.ProtectionDomain;
 import java.util.List;
@@ -50,7 +51,7 @@ public class MariaDBPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         MariaDBConfig config = new MariaDBConfig(context.getConfig());
 
         if (!config.isPluginEnable()) {

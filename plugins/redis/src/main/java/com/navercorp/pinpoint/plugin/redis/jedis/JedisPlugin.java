@@ -17,6 +17,7 @@ package com.navercorp.pinpoint.plugin.redis.jedis;
 
 import java.lang.reflect.Modifier;
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
@@ -31,6 +32,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLogger;
 import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
@@ -43,7 +45,7 @@ public class JedisPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final JedisPluginConfig config = new JedisPluginConfig(context.getConfig());
         if (!config.isEnable()) {
             if (logger.isInfoEnabled()) {

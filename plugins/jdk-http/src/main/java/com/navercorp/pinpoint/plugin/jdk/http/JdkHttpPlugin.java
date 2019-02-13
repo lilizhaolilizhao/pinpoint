@@ -16,6 +16,7 @@ package com.navercorp.pinpoint.plugin.jdk.http;
  */
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
@@ -27,6 +28,7 @@ import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformTemplate
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.util.InstrumentUtils;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 /**
  * 
@@ -38,7 +40,7 @@ public class JdkHttpPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         transformTemplate.transform("sun.net.www.protocol.http.HttpURLConnection", new TransformCallback() {
             
             @Override

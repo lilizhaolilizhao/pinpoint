@@ -19,13 +19,16 @@ import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformTemplate
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformTemplateAware;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
+
+import java.util.List;
 
 public class GrpcPlugin implements ProfilerPlugin, TransformTemplateAware {
 
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final GrpcConfig config = new GrpcConfig(context.getConfig());
 
         if (config.isClientEnable()) {

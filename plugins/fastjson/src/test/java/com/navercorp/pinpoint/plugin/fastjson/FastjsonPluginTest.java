@@ -24,6 +24,6 @@ public class FastjsonPluginTest {
         ProfilerPluginSetupContext profilerPluginSetupContext = mock(ProfilerPluginSetupContext.class);
         when(profilerPluginSetupContext.getConfig()).thenReturn(new DefaultProfilerConfig());
 
-        plugin.setup(profilerPluginSetupContext);
+        plugin.setup(profilerPluginSetupContext, null);
     }
 }

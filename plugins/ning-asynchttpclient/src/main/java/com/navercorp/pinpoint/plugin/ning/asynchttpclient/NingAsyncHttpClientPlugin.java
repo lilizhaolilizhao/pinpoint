@@ -15,9 +15,8 @@
  */
 package com.navercorp.pinpoint.plugin.ning.asynchttpclient;
 
-import static com.navercorp.pinpoint.common.trace.ServiceTypeProperty.*;
-
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
@@ -31,6 +30,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.util.InstrumentUtils;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 /**
  * @author netspider
@@ -44,7 +44,7 @@ public class NingAsyncHttpClientPlugin implements ProfilerPlugin, TransformTempl
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final NingAsyncHttpClientPluginConfig config = new NingAsyncHttpClientPluginConfig(context.getConfig());
         if (!config.isEnable()) {
             if (logger.isInfoEnabled()) {

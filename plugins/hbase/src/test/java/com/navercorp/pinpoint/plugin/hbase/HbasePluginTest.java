@@ -24,6 +24,6 @@ public class HbasePluginTest {
         doReturn(new DefaultProfilerConfig()).when(context).getConfig();
         HbasePlugin plugin = new HbasePlugin();
         plugin.setTransformTemplate(transformTemplate);
-        plugin.setup(context);
+        plugin.setup(context, null);
     }
 }

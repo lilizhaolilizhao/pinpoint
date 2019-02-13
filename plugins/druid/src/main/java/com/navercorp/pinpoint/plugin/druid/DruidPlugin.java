@@ -26,8 +26,10 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.util.InstrumentUtils;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 /**
  * The type Druid plugin.
@@ -50,7 +52,7 @@ public class DruidPlugin implements ProfilerPlugin, TransformTemplateAware {
     }
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
 
         config = new DruidConfig(context.getConfig());
 

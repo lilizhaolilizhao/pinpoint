@@ -17,11 +17,14 @@
 package com.navercorp.pinpoint.profiler.plugin;
 
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 import com.navercorp.pinpoint.profiler.instrument.classloading.ClassInjector;
+
+import java.util.List;
 
 /**
  * @author Woonduk Kang(emeroad)
  */
 public interface PluginSetup {
-    SetupResult setupPlugin(ProfilerPlugin plugin, ClassInjector classInjector);
+    SetupResult setupPlugin(ProfilerPlugin plugin, ClassInjector classInjector, List<PluginInfoBean> pluginInfoBeans);
 }

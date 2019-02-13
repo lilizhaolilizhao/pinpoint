@@ -32,6 +32,7 @@ import com.navercorp.pinpoint.bootstrap.interceptor.scope.ExecutionPolicy;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.InterceptorScope;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
@@ -43,7 +44,7 @@ public class ThriftPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         ThriftPluginConfig config = new ThriftPluginConfig(context.getConfig());
 
         boolean traceClient = config.traceThriftClient();

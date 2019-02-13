@@ -34,7 +34,6 @@ import java.lang.instrument.ClassFileTransformer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ServiceLoader;
 
 /**
  * @author Woonduk Kang(emeroad)
@@ -71,7 +70,7 @@ public class MockPluginContextLoadResult implements PluginContextLoadResult {
         PluginSetup pluginSetup = new MockPluginSetup(profilerConfig, instrumentEngine, dynamicTransformTrigger);
         for (Plugin<ProfilerPlugin> plugin : plugins) {
             for (ProfilerPlugin profilerPlugin : plugin.getInstanceList()) {
-                SetupResult context = pluginSetup.setupPlugin(profilerPlugin, classInjector);
+                SetupResult context = pluginSetup.setupPlugin(profilerPlugin, classInjector, null);
                 pluginContexts.add(context);
             }
         }

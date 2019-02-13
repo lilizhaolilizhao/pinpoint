@@ -20,6 +20,7 @@ import com.navercorp.pinpoint.bootstrap.config.ProfilerConfig;
 import com.navercorp.pinpoint.bootstrap.instrument.DynamicTransformTrigger;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.MatchableTransformTemplate;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.MatchableTransformTemplateAware;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 import com.navercorp.pinpoint.profiler.instrument.GuardInstrumentContext;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentContext;
 import com.navercorp.pinpoint.profiler.instrument.InstrumentEngine;
@@ -29,6 +30,8 @@ import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.profiler.instrument.classloading.ClassInjector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * @author Woonduk Kang(emeroad)
@@ -57,7 +60,7 @@ public class DefaultPluginSetup implements PluginSetup {
     }
 
     @Override
-    public SetupResult setupPlugin(ProfilerPlugin profilerPlugin, ClassInjector classInjector) {
+    public SetupResult setupPlugin(ProfilerPlugin profilerPlugin, ClassInjector classInjector, List<PluginInfoBean> pluginInfoBeans) {
 
         final ClassFileTransformerLoader transformerRegistry = new ClassFileTransformerLoader(profilerConfig, dynamicTransformTrigger);
         final DefaultProfilerPluginSetupContext setupContext = new DefaultProfilerPluginSetupContext(profilerConfig);
@@ -70,7 +73,7 @@ public class DefaultPluginSetup implements PluginSetup {
             if (logger.isInfoEnabled()) {
                 logger.info("{} Plugin setup", profilerPlugin.getClass().getName());
             }
-            profilerPlugin.setup(guardSetupContext);
+            profilerPlugin.setup(guardSetupContext, pluginInfoBeans);
         } finally {
             guardSetupContext.close();
             guardInstrumentContext.close();

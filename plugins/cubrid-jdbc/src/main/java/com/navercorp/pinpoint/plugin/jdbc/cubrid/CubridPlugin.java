@@ -31,6 +31,7 @@ import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.jdbc.JdbcUrlParserV2;
 import com.navercorp.pinpoint.bootstrap.plugin.jdbc.PreparedStatementBindingMethodFilter;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import java.security.ProtectionDomain;
 import java.util.List;
@@ -50,7 +51,7 @@ public class CubridPlugin implements ProfilerPlugin, TransformTemplateAware {
     private final JdbcUrlParserV2 jdbcUrlParser = new CubridJdbcUrlParser();
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         CubridConfig config = new CubridConfig(context.getConfig());
 
         if (!config.isPluginEnable()) {

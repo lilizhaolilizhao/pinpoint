@@ -32,6 +32,7 @@ import com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor;
 import com.navercorp.pinpoint.bootstrap.interceptor.scope.ExecutionPolicy;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import java.lang.reflect.Modifier;
 import java.security.ProtectionDomain;
@@ -49,7 +50,7 @@ public class RabbitMQClientPlugin implements ProfilerPlugin, TransformTemplateAw
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         RabbitMQClientPluginConfig config = new RabbitMQClientPluginConfig(context.getConfig());
         if (!config.isTraceRabbitMQClient()) {
             return;

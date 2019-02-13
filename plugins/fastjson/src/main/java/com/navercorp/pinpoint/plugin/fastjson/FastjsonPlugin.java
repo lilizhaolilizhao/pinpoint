@@ -22,8 +22,10 @@ import com.navercorp.pinpoint.bootstrap.logging.PLogger;
 import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 /**
  * The type Fastjson plugin.
@@ -44,7 +46,7 @@ public class FastjsonPlugin implements ProfilerPlugin, TransformTemplateAware {
     }
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
 
         FastjsonConfig config = new FastjsonConfig(context.getConfig());
 

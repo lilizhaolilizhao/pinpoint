@@ -18,6 +18,7 @@ package com.navercorp.pinpoint.profiler.context.provider.plugin;
 import com.navercorp.pinpoint.bootstrap.config.ProfilerConfig;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.common.plugin.Plugin;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 import com.navercorp.pinpoint.common.plugin.PluginLoader;
 import com.navercorp.pinpoint.common.util.Assert;
 import com.navercorp.pinpoint.profiler.instrument.classloading.ClassInjector;
@@ -62,19 +63,28 @@ public class ProfilerPluginLoader {
     }
 
     public List<SetupResult> load() {
+        //插码的信息汇总
+        List<PluginInfoBean> pluginInfoBeans = new ArrayList<PluginInfoBean>();
 
         List<Plugin<ProfilerPlugin>> plugins = pluginLoader.load(ProfilerPlugin.class);
-
         List<SetupResult> pluginContexts = new ArrayList<SetupResult>(plugins.size());
         for (Plugin<ProfilerPlugin> plugin : plugins) {
-            List<SetupResult> setupResults = loadProfilerPlugin(plugin);
+            List<SetupResult> setupResults = loadProfilerPlugin(plugin, pluginInfoBeans);
             pluginContexts.addAll(setupResults);
         }
+
+        System.out.println(pluginInfoBeans);
 
         return pluginContexts;
     }
 
-    private List<SetupResult> loadProfilerPlugin(Plugin<ProfilerPlugin> plugin) {
+    /**
+     * 加载探针插件
+     * @param plugin
+     * @param pluginInfoBeans
+     * @return
+     */
+    private List<SetupResult> loadProfilerPlugin(Plugin<ProfilerPlugin> plugin, List<PluginInfoBean> pluginInfoBeans) {
         List<String> pluginPackageList = plugin.getPackageList();
         final ClassNameFilter pluginFilterChain = createPluginFilterChain(pluginPackageList);
 
@@ -89,14 +99,7 @@ public class ProfilerPluginLoader {
 
             PluginConfig pluginConfig = new PluginConfig(plugin, pluginFilterChain);
             final ClassInjector classInjector = classInjectorFactory.newClassInjector(pluginConfig);
-            final SetupResult setupResult = pluginSetup.setupPlugin(profilerPlugin, classInjector);
-
-            //获取所有插码的目标类
-            List<ClassFileTransformer> classTransformerList = setupResult.getClassTransformerList();
-            for (ClassFileTransformer classFileTransformer : classTransformerList) {
-                String name = classFileTransformer.getClass().getName();
-                System.out.println(name);
-            }
+            final SetupResult setupResult = pluginSetup.setupPlugin(profilerPlugin, classInjector, pluginInfoBeans);
 
             result.add(setupResult);
         }

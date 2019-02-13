@@ -22,6 +22,7 @@ import com.navercorp.pinpoint.bootstrap.instrument.DynamicTransformTrigger;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentContext;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.MatchableTransformTemplate;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.MatchableTransformTemplateAware;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 import com.navercorp.pinpoint.profiler.instrument.InstrumentEngine;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformTemplate;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformTemplateAware;
@@ -33,6 +34,8 @@ import com.navercorp.pinpoint.profiler.plugin.DefaultProfilerPluginSetupContext;
 import com.navercorp.pinpoint.profiler.plugin.GuardProfilerPluginContext;
 import com.navercorp.pinpoint.profiler.plugin.PluginSetup;
 import com.navercorp.pinpoint.profiler.plugin.SetupResult;
+
+import java.util.List;
 
 /**
  * @author Woonduk Kang(emeroad)
@@ -61,7 +64,7 @@ public class MockPluginSetup implements PluginSetup {
     }
 
     @Override
-    public SetupResult setupPlugin(ProfilerPlugin plugin, ClassInjector classInjector) {
+    public SetupResult setupPlugin(ProfilerPlugin plugin, ClassInjector classInjector, List<PluginInfoBean> pluginInfoBeans) {
 
         final DefaultProfilerPluginSetupContext pluginSetupContext = new DefaultProfilerPluginSetupContext(profilerConfig);
         final GuardProfilerPluginContext guardPluginSetupContext = new GuardProfilerPluginContext(pluginSetupContext);
@@ -70,7 +73,7 @@ public class MockPluginSetup implements PluginSetup {
         InstrumentContext instrumentContext = new PluginInstrumentContext(profilerConfig, instrumentEngine, dynamicTransformTrigger, classInjector, classFileTransformerLoader);
         try {
             preparePlugin(plugin, instrumentContext);
-            plugin.setup(guardPluginSetupContext);
+            plugin.setup(guardPluginSetupContext, pluginInfoBeans);
         } finally {
             guardPluginSetupContext.close();
         }

@@ -30,6 +30,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLogger;
 import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 import com.navercorp.pinpoint.common.util.StringUtils;
 
 import java.security.ProtectionDomain;
@@ -40,7 +41,7 @@ public class SpringAsyncPlugin implements ProfilerPlugin, MatchableTransformTemp
     private MatchableTransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final SpringAsyncConfig config = new SpringAsyncConfig(context.getConfig());
         if (!config.isEnable()) {
             logger.info("Disable SpringAsyncPlugin");

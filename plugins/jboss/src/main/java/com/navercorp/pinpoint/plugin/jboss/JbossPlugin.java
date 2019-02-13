@@ -16,6 +16,7 @@
 package com.navercorp.pinpoint.plugin.jboss;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
@@ -29,6 +30,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.resolver.ConditionProvider;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 /**
  * The Class JbossPlugin.
@@ -47,7 +49,7 @@ public class JbossPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(final ProfilerPluginSetupContext context) {
+    public void setup(final ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final JbossConfig jbossConfig = new JbossConfig(context.getConfig());
         if (!jbossConfig.isEnable()) {
             if (isInfo) {

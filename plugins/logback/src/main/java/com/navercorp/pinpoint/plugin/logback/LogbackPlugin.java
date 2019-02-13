@@ -17,6 +17,7 @@ package com.navercorp.pinpoint.plugin.logback;
 
 import java.security.ProtectionDomain;
 import java.util.Arrays;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.*;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
@@ -27,6 +28,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.util.InstrumentUtils;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 /**
  * This modifier support slf4j 1.4.1 version and logback 0.9.8 version, or greater.
@@ -43,7 +45,7 @@ public class LogbackPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
     
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         
         final LogbackConfig config = new LogbackConfig(context.getConfig());
         if (logger.isInfoEnabled()) {

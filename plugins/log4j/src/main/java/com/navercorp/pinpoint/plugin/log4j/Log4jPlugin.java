@@ -17,6 +17,7 @@ package com.navercorp.pinpoint.plugin.log4j;
 
 import java.security.ProtectionDomain;
 import java.util.Arrays;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.*;
 import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformCallback;
@@ -27,6 +28,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.util.InstrumentUtils;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 /**
  * This modifier support log4j 1.2.15 version, or greater.
@@ -43,7 +45,7 @@ public class Log4jPlugin implements ProfilerPlugin, TransformTemplateAware {
     
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final Log4jConfig config = new Log4jConfig(context.getConfig());
         if (logger.isInfoEnabled()) {
             logger.info("Log4jPlugin config:{}", config);

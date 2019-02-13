@@ -18,6 +18,7 @@ package com.navercorp.pinpoint.plugin.spring.web;
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
@@ -29,6 +30,7 @@ import com.navercorp.pinpoint.bootstrap.instrument.transformer.TransformTemplate
 import com.navercorp.pinpoint.bootstrap.interceptor.BasicMethodInterceptor;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 
 /**
@@ -40,7 +42,7 @@ public class SpringWebMvcPlugin implements ProfilerPlugin, TransformTemplateAwar
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         transformTemplate.transform("org.springframework.web.servlet.FrameworkServlet", new TransformCallback() {
 
             @Override

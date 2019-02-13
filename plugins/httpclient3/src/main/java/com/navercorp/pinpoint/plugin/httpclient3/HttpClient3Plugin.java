@@ -16,6 +16,7 @@
 package com.navercorp.pinpoint.plugin.httpclient3;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
@@ -29,6 +30,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLogger;
 import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 /**
  * @author netspider
@@ -43,7 +45,7 @@ public class HttpClient3Plugin implements ProfilerPlugin, TransformTemplateAware
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final HttpClient3PluginConfig config = new HttpClient3PluginConfig(context.getConfig());
         if (logger.isInfoEnabled()) {
             logger.info("HttpClient3Plugin config:{}", config);

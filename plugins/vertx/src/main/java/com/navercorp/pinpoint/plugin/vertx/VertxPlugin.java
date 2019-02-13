@@ -32,6 +32,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.common.annotations.InterfaceStability;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class VertxPlugin implements ProfilerPlugin, MatchableTransformTemplateAw
     private MatchableTransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final VertxConfig config = new VertxConfig(context.getConfig());
         if (!config.isEnable() || (!config.isEnableHttpServer() && !config.isEnableHttpClient())) {
             if (isInfo) {

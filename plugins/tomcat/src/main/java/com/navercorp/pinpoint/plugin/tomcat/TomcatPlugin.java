@@ -15,6 +15,7 @@
 package com.navercorp.pinpoint.plugin.tomcat;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
@@ -28,6 +29,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.resolver.ConditionProvider;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 /**
  * @author Jongho Moon
@@ -40,7 +42,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final TomcatConfig config = new TomcatConfig(context.getConfig());
         if (!config.isEnable()) {
             logger.info("TomcatPlugin disabled");
@@ -56,7 +58,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
 
         if (shouldAddTransformers(config)) {
             logger.info("Adding Tomcat transformers");
-            addTransformers(config);
+            addTransformers(config, pluginInfoBeans);
         } else {
             logger.info("Not adding Tomcat transfomers");
         }
@@ -74,7 +76,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
         return isTomcatApplication || isSpringBootApplication;
     }
 
-    private void addTransformers(TomcatConfig config) {
+    private void addTransformers(TomcatConfig config, List<PluginInfoBean> pluginInfoBeans) {
         // Add server metadata
         addStandardService();
         addTomcatConnector();
@@ -85,7 +87,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
         // Hide pinpoint headers & Trace HTTP response status code
         addRequestFacade(config);
         // Entry Point
-        addStandardHostValve();
+        addStandardHostValve(pluginInfoBeans);
     }
 
 
@@ -190,7 +192,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
         });
     }
 
-    private void addStandardHostValve() {
+    private void addStandardHostValve(final List<PluginInfoBean> pluginInfoBeans) {
         transformTemplate.transform("org.apache.catalina.core.StandardHostValve", new TransformCallback() {
 
             @Override
@@ -200,6 +202,10 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
                 final InstrumentMethod method = target.getDeclaredMethod("invoke", "org.apache.catalina.connector.Request", "org.apache.catalina.connector.Response");
                 if (method != null) {
                     method.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.StandardHostValveInvokeInterceptor");
+
+                    //对插码的类和方法进行汇总
+                    pluginInfoBeans.add(new PluginInfoBean("org.apache.catalina.core.StandardHostValve", "invoke",
+                            new String[]{"org.apache.catalina.connector.Request", "org.apache.catalina.connector.Response"}));
                 }
                 return target.toBytecode();
             }

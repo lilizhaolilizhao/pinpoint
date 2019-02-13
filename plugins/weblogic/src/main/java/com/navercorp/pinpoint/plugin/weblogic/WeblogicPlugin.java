@@ -17,6 +17,7 @@ package com.navercorp.pinpoint.plugin.weblogic;
 
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentClass;
 import com.navercorp.pinpoint.bootstrap.instrument.InstrumentException;
@@ -29,6 +30,7 @@ import com.navercorp.pinpoint.bootstrap.logging.PLogger;
 import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 
 /**
  * @author andyspan
@@ -40,7 +42,7 @@ public class WeblogicPlugin implements ProfilerPlugin, TransformTemplateAware {
     protected PLogger logger = PLoggerFactory.getLogger(this.getClass());
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         final WeblogicConfiguration config = new WeblogicConfiguration(context.getConfig());
         if (!config.isEnable()) {
             logger.info("WeblogicPlugin disabled");

@@ -26,9 +26,12 @@ import com.navercorp.pinpoint.bootstrap.logging.PLogger;
 import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
+
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 /**
  * @author Sungkook Kim
@@ -46,7 +49,7 @@ public class JacksonPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         JacksonConfig config = new JacksonConfig(context.getConfig());
         logger.debug("[Jackson] Initialized config={}", config);
 

@@ -31,15 +31,17 @@ import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
 import com.navercorp.pinpoint.bootstrap.plugin.rxjava.transformer.SchedulerWorkerTransformCallback;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 import com.navercorp.pinpoint.plugin.hystrix.field.HystrixKeyNameAccessor;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
 /**
  * Any Pinpoint profiler plugin must implement ProfilerPlugin interface.
- * ProfilerPlugin declares only one method {@link #setup(ProfilerPluginSetupContext)}.
+ * ProfilerPlugin declares only one method {@link ProfilerPlugin#setup(ProfilerPluginSetupContext, List)}.
  * You should implement the method to do whatever you need to setup your plugin with the passed ProfilerPluginSetupContext object.
  *
  * @author Jiaqi Feng
@@ -51,7 +53,7 @@ public class HystrixPlugin implements ProfilerPlugin, TransformTemplateAware {
     private TransformTemplate transformTemplate;
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         HystrixPluginConfig config = new HystrixPluginConfig(context.getConfig());
         if (config.isTraceHystrix()) {
             addHystrixCommandTransformers();

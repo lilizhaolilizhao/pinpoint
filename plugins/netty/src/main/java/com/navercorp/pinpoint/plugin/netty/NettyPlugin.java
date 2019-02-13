@@ -29,11 +29,12 @@ import com.navercorp.pinpoint.bootstrap.logging.PLogger;
 import com.navercorp.pinpoint.bootstrap.logging.PLoggerFactory;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin;
 import com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext;
-import com.navercorp.pinpoint.bootstrap.plugin.util.InstrumentUtils;
+import com.navercorp.pinpoint.common.plugin.PluginInfoBean;
 import com.navercorp.pinpoint.plugin.netty.transformer.http.HttpEncoderTransformer;
 import com.navercorp.pinpoint.plugin.netty.transformer.http.HttpRequestTransformer;
 
 import java.security.ProtectionDomain;
+import java.util.List;
 
 import static com.navercorp.pinpoint.common.util.VarArgs.va;
 
@@ -49,7 +50,7 @@ public class NettyPlugin implements ProfilerPlugin, TransformTemplateAware {
 
 
     @Override
-    public void setup(ProfilerPluginSetupContext context) {
+    public void setup(ProfilerPluginSetupContext context, List<PluginInfoBean> pluginInfoBeans) {
         NettyConfig config = new NettyConfig(context.getConfig());
         if (!config.isPluginEnable()) {
             LOGGER.info("Disable netty option. 'profiler.netty=false'");
