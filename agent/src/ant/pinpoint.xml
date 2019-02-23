@@ -6,7 +6,7 @@
             <arg value="cd /Users/oneapm/git/pinpoint;/Users/oneapm/software/apache-maven-3.5.4/bin/mvn clean package -Dmaven.test.skip=true -DskipITs"/>
         </exec>
     </target>
-    <target name="deploy" depends="mvn" description="deploy to local dir">
+    <target name="deploy_local" depends="mvn" description="deploy to local dir">
         <exec executable="sh">
             <arg value="-c"/>
             <arg value="cp /Users/oneapm/git/pinpoint/agent/target/pinpoint-agent-1.8.2-SNAPSHOT.zip /Users/oneapm/software/pinpoint;
